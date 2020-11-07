@@ -1,0 +1,45 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "space man",
+      "intents": [
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": []
+        },
+        {
+          "name": "GetRemoteDataIntent",
+          "slots": [
+            {
+              "name": "fun",
+              "type": "AMAZON.Game"
+            },
+            {
+              "name": "num",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "{fun} my candies",
+            "{fun} {num} from my candies",
+            "{fun} {num} candies to my candies"
+          ]
+        }
+      ],
+      "types": []
+    }
+  },
+  "version": "7"
+}
