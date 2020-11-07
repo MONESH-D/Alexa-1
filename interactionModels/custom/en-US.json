@@ -21,25 +21,38 @@
         },
         {
           "name": "GetRemoteDataIntent",
+          "slots": [],
+          "samples": [
+            "how man candies in my candies"
+          ]
+        },
+        {
+          "name": "addIntent",
           "slots": [
-            {
-              "name": "fun",
-              "type": "AMAZON.Game"
-            },
             {
               "name": "num",
               "type": "AMAZON.NUMBER"
             }
           ],
           "samples": [
-            "{fun} my candies",
-            "{fun} {num} from my candies",
-            "{fun} {num} candies to my candies"
+            "add {num} candies to my candies"
+          ]
+        },
+        {
+          "name": "removeIntent",
+          "slots": [
+            {
+              "name": "num",
+              "type": "AMAZON.NUMBER"
+            }
+          ],
+          "samples": [
+            "remove {num} candies from my candies"
           ]
         }
       ],
       "types": []
     }
   },
-  "version": "7"
+  "version": "10"
 }

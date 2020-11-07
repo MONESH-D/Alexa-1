@@ -26,37 +26,57 @@ const GetRemoteDataHandler = {
       && handlerInput.requestEnvelope.request.intent.name === 'GetRemoteDataIntent');
   },
   async handle(handlerInput) {
-    let outputSpeech = 'This is the default message.';
-    
-        const fun = handlerInput.requestEnvelope.request.intent.slots.fun.value;
-        const num = handlerInput.requestEnvelope.request.intent.slots.num.value;
-        var con;
-         
-         fun === "add"? con =1: fun === "remove" ?con = 2:con =3;
-        //   outputSpeech = `printed ${con}, `;
-          outputSpeech = `printed ${fun}, `;
-         
-//     if(con ===1 ){
-//       await  axios.post("https://srmalexa.herokuapp.com/", {count: num})
-//           outputSpeech = `printed ${num}, `;
-//     }
-//     else if(con ===2){
-//          let promise = await axios.get("https://srmalexa.herokuapp.com/");
-//     console.log(promise.data)
-//     var v = promise.data - num;
-    
-//   await axios.put('https://srmalexa.herokuapp.com/', {count: v});
-//         outputSpeech = `printed ${v}, `;
-//     }
-//     else{
-//          let promise = await axios.get("https://srmalexa.herokuapp.com/");
-//     console.log(promise.data)
-//       outputSpeech = `printed ${promise.data}, `;
-        
-//     }
+    let outputSpeech = "i'm searching for your candies";
+          let promise = await axios.get("https://srmalexa.herokuapp.com/");
+    console.log(promise.data)
+      outputSpeech = `printed ${promise.data}, `;
+    return handlerInput.responseBuilder
+      .speak(outputSpeech)
+      .getResponse();
+  },
+};
+const addIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'LaunchRequest'
+      || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'addIntent');
+  },
+  async handle(handlerInput) {
+    let outputSpeech = 'This is add intent.';
+        var num = handlerInput.requestEnvelope.request.intent.slots.num.value;
+
+          await  axios.post("https://srmalexa.herokuapp.com/", {count: num})
+        //   var c = num + 10000;
+          outputSpeech = `printed ${num}, `;
   
 
 // https://srmalexa.herokuapp.com/
+    return handlerInput.responseBuilder
+      .speak(outputSpeech)
+      .getResponse();
+  },
+};
+const removeIntentHandler = {
+  canHandle(handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'LaunchRequest'
+      || (handlerInput.requestEnvelope.request.type === 'IntentRequest'
+      && handlerInput.requestEnvelope.request.intent.name === 'removeIntent');
+  },
+  async handle(handlerInput) {
+    let outputSpeech = 'This is removr intent.';
+        var num = handlerInput.requestEnvelope.request.intent.slots.num.value;
+          outputSpeech = `printed ${num}, `;
+          let promise = await axios.get("https://srmalexa.herokuapp.com/");
+    console.log(promise.data)
+          
+          var v;
+          promise.data === null? v = 0 - num:
+          v = promise.data - num;
+           console.log(v)
+            console.log(num)
+           await axios.post('https://srmalexa.herokuapp.com/', {count: v});
+        outputSpeech = `printed ${v}, `;
+
     return handlerInput.responseBuilder
       .speak(outputSpeech)
       .getResponse();
@@ -136,7 +156,9 @@ const skillBuilder = Alexa.SkillBuilders.custom();
 exports.handler = skillBuilder
   .addRequestHandlers(
     LaunchRequestHandler,
+    removeIntentHandler,
     GetRemoteDataHandler,
+    addIntentHandler,
     HelpIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler,
